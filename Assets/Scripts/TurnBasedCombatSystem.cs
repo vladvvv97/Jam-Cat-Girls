@@ -96,6 +96,18 @@ public class TurnBasedCombatSystem : MonoBehaviour
         else
         { return; }
     }
+    void CheckTurnEnds()
+    {
+        if (characters.Count == 0 || enemies.Count == 0)
+        { return; }
+        else if (characters.TrueForAll(element => element.AlreadyUsed == true) && enemies.TrueForAll(element => element.AlreadyUsed == true))
+        {
+            Debug.Log("Invoke");
+            EventsManager.InvokeOnTurnEndsEvent();
+        }
+        else
+        { return; }
+    }
 
     void InvokeNewTurn()
     {
@@ -132,7 +144,9 @@ public class TurnBasedCombatSystem : MonoBehaviour
             _chosenCharacter.ChangeColor(Color.grey);
             _chosenCharacter.AlreadyUsed = true;
             _chosenCharacter = null;
+            CheckTurnEnds();
         }
+        
     }
     void SetSkillAbilityType()
     {
