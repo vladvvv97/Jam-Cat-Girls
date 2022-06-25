@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f99bed667d1e70b47b9c777dcd057d90, type: 3}
+  m_Name: Data
+  m_EditorClassIdentifier: 
+  Mana:
+    ManaRegenerationRate: 0
+    ManaPerTick: 0
+    ManaStartValue: 0
+  Global:
+    MaxNumCardsInHand: 0
+    MeleeAtackRange: 0
+    MinAttackSpeed: 0
+  Units:
+    SwordsmanHealth: 0
+    SwordsmanDamage: 0
+    SwordsmanAttackSpeed: 0
+    SwordsmanAttackDistance: 0
+    SwordsmanDamageAbsorption: 0
+    SwordsmanManaCost: 0
+    CrossbowmanHealth: 0
+    CrossbowmanDamage: 0
+    CrossbowmanAttackSpeed: 0
+    CrossbowmanArrowSpeed: 0
+    CrossbowmanArmorPenetration: 0
+    CrossbowmanManaCost: 0
+  EnemyUnits:
+    SkeletonHealth: 0
+    SkeletonDamage: 0
+    SkeletonAttackSpeed: 0
+    SkeletonAttackDistance: 0
+    SkeletonSpeed: 0
+    SkeletonArmor: 0
+  Buffs:
+    HealQuantity: 0
+    HealCardManaCost: 0
+    RageAttackSpeed: 0
+    RageDuration: 0
+    RageCardManaCost: 0
+  Spells:
+    FireExplosionWidth: 0
+    FireExplosionHeight: 0
+    FireExplosionDamage: 0
+    FireExplosionDOTDamage: 0
+    FireExplosionDuration: 0
+    FireExplosionManaCost: 0
+    IceBlastWidth: 0
+    IceBlastHeight: 0
+    IceBlastDamage: 0
+    IceBlastSpeedDebuff: 0
+    IceBlastDuration: 0
+    IceBlastManaCost: 0
