@@ -20,7 +20,7 @@ public class Healer : Character
         initialDefenceBonus = DefenceBonus;
         initialSkillValue = SkillValue;
 
-        HealthNow = Health / 2;
+        HealthNow = Health;
     }
 
     override protected void Start()

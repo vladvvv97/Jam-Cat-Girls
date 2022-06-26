@@ -28,8 +28,9 @@ public class AudioManager : MonoBehaviour
 
         Music.InitializeMusic();
         Sounds.InitializeSounds();
+        
 
-        SceneManager.activeSceneChanged += OnActiveSceneChanged;
+       // SceneManager.activeSceneChanged += OnActiveSceneChanged;
     }
 
     private void OnActiveSceneChanged(Scene current, Scene next)
@@ -75,23 +76,24 @@ public class AudioManager : MonoBehaviour
         {
             audioSource.playOnAwake = true;
             audioSource.loop = true;
+            PlayMusic(eAudioNames.InGameOST);
 
-            if (PlayerPrefs.HasKey(IsMute))
-            {
-                isMute = System.Convert.ToBoolean(PlayerPrefs.GetString(IsMute));
+            //if (PlayerPrefs.HasKey(IsMute))
+            //{
+            //    isMute = System.Convert.ToBoolean(PlayerPrefs.GetString(IsMute));
 
-                audioSource.mute = isMute;
+            //    audioSource.mute = isMute;
 
-                musicToggle.SetIsOnWithoutNotify(isMute);
-            }
-            if (PlayerPrefs.HasKey(MusicVolume))
-            {
-                musicVolume = PlayerPrefs.GetFloat(MusicVolume);
+            //    musicToggle.SetIsOnWithoutNotify(isMute);
+            //}
+            //if (PlayerPrefs.HasKey(MusicVolume))
+            //{
+            //    musicVolume = PlayerPrefs.GetFloat(MusicVolume);
 
-                audioSource.volume = musicVolume;
+            //    audioSource.volume = musicVolume;
 
-                musicSlider.value = musicVolume;
-            }
+            //    musicSlider.value = musicVolume;
+            //}
         }
         public void MuteMusic()
         {
@@ -122,11 +124,10 @@ public class AudioManager : MonoBehaviour
             foreach (var audioClip in audioClips)
             {
                 if (audioClip.name == audioName)
-                {
+                {                   
                     audioSource.clip = audioClip.audioClip;
                     audioSource.loop = true;
                     audioSource.Play();
-                    return;
                 }
             }
         }
@@ -159,22 +160,22 @@ public class AudioManager : MonoBehaviour
         private string SoundsVolume { get => soundsManagerName + "Volume"; }
         public void InitializeSounds()
         {
-            if (PlayerPrefs.HasKey(IsMute))
-            {
-                isMute = System.Convert.ToBoolean(PlayerPrefs.GetString(IsMute));
+            //if (PlayerPrefs.HasKey(IsMute))
+            //{
+            //    isMute = System.Convert.ToBoolean(PlayerPrefs.GetString(IsMute));
 
-                audioSource.mute = isMute;
+            //    audioSource.mute = isMute;
 
-                soundsToggle.SetIsOnWithoutNotify(isMute);
-            }
-            if (PlayerPrefs.HasKey(SoundsVolume))
-            {
-                soundsVolume = PlayerPrefs.GetFloat(SoundsVolume);
+            //    soundsToggle.SetIsOnWithoutNotify(isMute);
+            //}
+            //if (PlayerPrefs.HasKey(SoundsVolume))
+            //{
+            //    soundsVolume = PlayerPrefs.GetFloat(SoundsVolume);
 
-                audioSource.volume = soundsVolume;
+            //    audioSource.volume = soundsVolume;
 
-                soundsSlider.value = soundsVolume;
-            }
+            //    soundsSlider.value = soundsVolume;
+            //}
         }
         public void MuteSounds()
         {

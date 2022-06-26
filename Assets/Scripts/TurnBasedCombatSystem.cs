@@ -30,6 +30,8 @@ public class TurnBasedCombatSystem : MonoBehaviour
 
     private AbilityType _chosenAbility;
 
+    private bool AItrigger = true;
+
     private int _turn = 0;
     public int Turn { get => _turn; set => _turn = value; }
 
@@ -45,6 +47,7 @@ public class TurnBasedCombatSystem : MonoBehaviour
         EventsManager.OnAttackEnemy.AddListener(AttackEnemy);
         EventsManager.OnAttackEnemy.AddListener(CheckTurnEnds);
         EventsManager.OnTurnEnds.AddListener(InvokeNewTurn);
+        EventsManager.OnEnemyTurn.AddListener(StartEnemiesAIcoroutine);
 
         attackButton.onClick.AddListener(SetAttackAbilityType);
         defendButton.onClick.AddListener(SetDefendAbilityType);
@@ -83,6 +86,46 @@ public class TurnBasedCombatSystem : MonoBehaviour
             }
             else { return; }
         }
+
+
+    }
+    public void StartEnemiesAIcoroutine()
+    {
+        StartCoroutine(EnemiesAI());
+    }
+    public IEnumerator EnemiesAI()
+    {     
+        if (AItrigger)
+        {
+            AItrigger = false;
+            yield return new WaitForSeconds(2.1f);
+            foreach (var element in enemies)
+            {
+                if (element.IsDead == false)
+                {
+                    int rnd;
+                    Character target;
+                    do
+                    {
+                        rnd = UnityEngine.Random.Range(0, characters.Count);
+                        target = characters[rnd];
+                    }
+                    while (characters.Exists(element => element.IsDead == false) && target.IsDead == true);
+
+                    float damage = element.AttackDamage * ((100f - target.Resistance) / 100f);
+                    target.HealthNow -= damage;
+                    target.UpdateHP(damage);
+                    element.AlreadyUsed = true;
+                    element.ChangeColor(Color.grey);
+                    yield return new WaitForSeconds(2.1f);
+                }
+                else { };
+            }
+            CheckTurnEnds();
+            AItrigger = true;
+            yield return null;
+        }
+              
     }
     void SetGlobalEffect(DiceRoll.DiceRollEffect effect)
     {
@@ -130,26 +173,30 @@ public class TurnBasedCombatSystem : MonoBehaviour
     }
     void CheckTurnEnds(Enemy enemy)
     {
-        if (characters.Count == 0 || enemies.Count == 0)
-        { return; }
-        else if (characters.TrueForAll(element => element.AlreadyUsed == true) && enemies.TrueForAll(element => element.AlreadyUsed == true))
+        
+        if (characters.TrueForAll(element => element.AlreadyUsed == true) && enemies.TrueForAll(element => element.AlreadyUsed == true))
         {
             Debug.Log("Invoke");
             EventsManager.InvokeOnTurnEndsEvent();
+        }
+        else if (characters.TrueForAll(element => element.AlreadyUsed == true))
+        {
+            EventsManager.InvokeOnEnemyTurnEvent();
         }
         else
         { return; }
     }
     void CheckTurnEnds()
     {
-        if (characters.Count == 0 || enemies.Count == 0) // Бесполезно
-        {
-            return;
-        }
-        else if (characters.TrueForAll(element => element.AlreadyUsed == true) && enemies.TrueForAll(element => element.AlreadyUsed == true))
+        
+        if (characters.TrueForAll(element => element.AlreadyUsed == true) && enemies.TrueForAll(element => element.AlreadyUsed == true))
         {
             Debug.Log("Invoke");
             EventsManager.InvokeOnTurnEndsEvent();
+        }
+        else if (characters.TrueForAll(element => element.AlreadyUsed == true))
+        {
+            EventsManager.InvokeOnEnemyTurnEvent();
         }
         else
         { return; }
@@ -164,7 +211,7 @@ public class TurnBasedCombatSystem : MonoBehaviour
     {
         Turn++;
         characters.ForEach(element => 
-        {   element.AlreadyUsed = false;
+        {   if (element.IsDead == false) element.AlreadyUsed = false;
             element.ChangeColor(Color.white);
             element.AttackDamage = element.initialAttackDamage;
             element.Resistance = element.initialResistance;
@@ -174,7 +221,7 @@ public class TurnBasedCombatSystem : MonoBehaviour
         } ) ;
         enemies.ForEach(element =>
         {
-            element.AlreadyUsed = true; // Поменять когда будет реализован AI
+            if (element.IsDead == false) element.AlreadyUsed = false;
             element.ChangeColor(Color.white);
             element.AttackDamage = element.initialAttackDamage;
             element.Resistance = element.initialResistance;
@@ -263,7 +310,7 @@ public class TurnBasedCombatSystem : MonoBehaviour
             {
                 characters.ForEach(element => { element.HealthNow += (int)_chosenCharacter.SkillValue; });
 
-                EventsManager.InvokeOnHealthChangesEvent();
+                EventsManager.InvokeOnHealthChangesEvent(_chosenCharacter.SkillValue);
 
                 _chosenCharacter.ChangeColor(Color.grey);
                 _chosenCharacter.AlreadyUsed = true;

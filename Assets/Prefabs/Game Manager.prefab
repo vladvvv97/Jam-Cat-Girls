@@ -68,9 +68,22 @@ MonoBehaviour:
     SkillValue: 30
     Resistance: 0
     DefenceBonus: 20
-  Enemy:
+  EnemyMelee:
     attackType: 0
-    Health: 10
-    AttackDamage: 5
-    Resistance: 33
-    DefenceBonus: 10
+    Health: 100
+    AttackDamage: 10
+    Resistance: 20
+    DefenceBonus: 0
+  EnemyRange:
+    attackType: 1
+    Health: 50
+    AttackDamage: 15
+    Resistance: 0
+    DefenceBonus: 0
+  RandomEffects:
+    MeleeDamageBonusMultiplier: 2
+    MeleeDamageReductionMultiplier: 0.5
+    RangeDamageBonusMultiplier: 3
+    ArmorReductionValue: 20
+    HealBonusMultiplier: 1.5
+    HealReductionMultiplier: 0.75

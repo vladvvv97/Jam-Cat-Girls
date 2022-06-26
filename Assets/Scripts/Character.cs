@@ -1,11 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Character : MonoBehaviour
 {
+    [SerializeField] private GameObject HP;
     [SerializeField] private Transform hpBar;
+    [SerializeField] private GameObject hpChangeEffect;
+    [SerializeField] private TextMeshPro hpChangeEffectTmp;
 
     protected SpriteRenderer sr;
 
@@ -60,14 +64,27 @@ public class Character : MonoBehaviour
         sr.color = color;
     }
 
-    protected void UpdateHP()
+    public void UpdateHP(float dmg)
     {
         hpBar.localScale = new Vector3(HealthNow / Health, 1, 1);
+        hpChangeEffectTmp.text = $"-{dmg}";
+        StartCoroutine(ActivateHPChangeEffect());
+    }
+
+    IEnumerator ActivateHPChangeEffect()
+    {
+        hpChangeEffect.gameObject.SetActive(true);
+        yield return new WaitForSeconds(2);
+        hpChangeEffect.gameObject.SetActive(false);
+        yield return null;
     }
     protected void Dead()
     {
+        AlreadyUsed = true;
         IsDead = true;
-        throw new NotImplementedException();
+        Debug.Log("Dead");
+        sr.enabled = false;
+        HP.SetActive(false);
     }
 
 }

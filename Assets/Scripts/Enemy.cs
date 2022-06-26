@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
 
     protected SpriteRenderer sr;
 
-    private float Health;
+    protected float Health;
     private float attackDamage;
     private int resistance;
     private int defenceBonus;
@@ -27,7 +27,7 @@ public class Enemy : MonoBehaviour
     private GameManager.ClassType classType;
 
     protected bool isDead = false;
-    protected bool alreadyUsed = true;
+    protected bool alreadyUsed = false;
     protected float healthNow;
     private float skillValue;
     public bool IsDead { get => isDead; set => isDead = value; }
@@ -42,17 +42,17 @@ public class Enemy : MonoBehaviour
 
     virtual protected void Awake()
     {
-        Health = GameManager.Instance.Enemy.Health;
-        AttackDamage = GameManager.Instance.Enemy.AttackDamage;
-        Resistance = GameManager.Instance.Enemy.Resistance;
-        DefenceBonus = GameManager.Instance.Enemy.DefenceBonus;
-        AttackType = GameManager.Instance.Enemy.attackType;
-        initialHealth = Health;
-        initialAttackDamage = AttackDamage;
-        initialResistance = Resistance;
-        initialDefenceBonus = DefenceBonus;
-        initialSkillValue = SkillValue;
-        HealthNow = Health;
+        //Health = GameManager.Instance.EnemyMelee.Health;
+        //AttackDamage = GameManager.Instance.EnemyMelee.AttackDamage;
+        //Resistance = GameManager.Instance.EnemyMelee.Resistance;
+        //DefenceBonus = GameManager.Instance.EnemyMelee.DefenceBonus;
+        //AttackType = GameManager.Instance.EnemyMelee.attackType;
+        //initialHealth = Health;
+        //initialAttackDamage = AttackDamage;
+        //initialResistance = Resistance;
+        //initialDefenceBonus = DefenceBonus;
+        //initialSkillValue = SkillValue;
+        //HealthNow = Health;
     }
 
     virtual protected void Start()
@@ -91,10 +91,11 @@ public class Enemy : MonoBehaviour
     }
     protected void Dead()
     {
+        AlreadyUsed = true;
+        IsDead = true;
         Debug.Log("Dead");
         sr.enabled = false;
-        HP.SetActive(false);
-        IsDead = true;
+        HP.SetActive(false);      
     }
 
 }

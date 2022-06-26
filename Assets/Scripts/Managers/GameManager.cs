@@ -10,7 +10,9 @@ public class GameManager : MonoBehaviour
     public TankData Tank;
     public DamageDealerData DamageDealer;
     public HealerData Healer;
-    public EnemyData Enemy;
+    public EnemyMeleeData EnemyMelee;
+    public EnemyMeleeData EnemyRange;
+
     public RandomEffectData RandomEffects;
     void Awake()
     {
@@ -63,7 +65,16 @@ public class GameManager : MonoBehaviour
         [Range(0, 100)] public int DefenceBonus;
     }
     [System.Serializable]
-    public class EnemyData
+    public class EnemyMeleeData
+    {
+        public AttackType attackType;
+        public float Health;
+        public float AttackDamage;
+        [Range(0, 100)] public int Resistance;
+        [Range(0, 100)] public int DefenceBonus;
+    }
+    [System.Serializable]
+    public class EnemyRangeData
     {
         public AttackType attackType;
         public float Health;

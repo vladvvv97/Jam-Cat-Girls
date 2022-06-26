@@ -8,7 +8,8 @@ public class EventsManager : MonoBehaviour
     public static readonly UnityEvent<Character> OnChosed = new UnityEvent<Character>();
     public static readonly UnityEvent<Enemy> OnAttackEnemy = new UnityEvent<Enemy>();
     public static readonly UnityEvent OnTurnEnds = new UnityEvent();
-    public static readonly UnityEvent OnHealthChanges = new UnityEvent();
+    public static readonly UnityEvent<float> OnHealthChanges = new UnityEvent<float>();
+    public static readonly UnityEvent OnEnemyTurn = new UnityEvent();
 
     public static void InvokeOnChosenEvent(Character character)
     {
@@ -23,8 +24,12 @@ public class EventsManager : MonoBehaviour
     {
         OnTurnEnds?.Invoke();
     }
-    public static void InvokeOnHealthChangesEvent()
+    public static void InvokeOnHealthChangesEvent(float damage)
     {
-        OnHealthChanges?.Invoke();
+        OnHealthChanges?.Invoke(damage);
+    }
+    public static void InvokeOnEnemyTurnEvent()
+    {
+        OnEnemyTurn?.Invoke();
     }
 }
