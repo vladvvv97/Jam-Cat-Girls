@@ -21,12 +21,15 @@ public class Enemy : MonoBehaviour
     public float initialAttackDamage;
     public int initialResistance;
     public int initialDefenceBonus;
+    public float initialSkillValue;
 
     private GameManager.AttackType attackType;
+    private GameManager.ClassType classType;
 
     protected bool isDead = false;
     protected bool alreadyUsed = true;
     protected float healthNow;
+    private float skillValue;
     public bool IsDead { get => isDead; set => isDead = value; }
     public bool AlreadyUsed { get => alreadyUsed; set => alreadyUsed = value; }
     public float HealthNow { get => healthNow; set { healthNow = value; if (healthNow <= 0) { Dead(); } } }
@@ -34,6 +37,8 @@ public class Enemy : MonoBehaviour
     public float AttackDamage { get => attackDamage; set => attackDamage = value; }
     public GameManager.AttackType AttackType { get => attackType; set => attackType = value; }
     public int DefenceBonus { get => defenceBonus; set => defenceBonus = value; }
+    public float SkillValue { get => skillValue; set => skillValue = value; }
+    public GameManager.ClassType ClassType { get => classType; set => classType = value; }
 
     virtual protected void Awake()
     {
@@ -46,6 +51,7 @@ public class Enemy : MonoBehaviour
         initialAttackDamage = AttackDamage;
         initialResistance = Resistance;
         initialDefenceBonus = DefenceBonus;
+        initialSkillValue = SkillValue;
         HealthNow = Health;
     }
 

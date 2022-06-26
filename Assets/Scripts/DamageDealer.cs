@@ -19,6 +19,7 @@ public class DamageDealer : Character
         initialAttackDamage = AttackDamage;
         initialResistance = Resistance;
         initialDefenceBonus = DefenceBonus;
+        initialSkillValue = SkillValue;
 
         HealthNow = Health / 2;
     }

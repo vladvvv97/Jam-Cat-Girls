@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public DamageDealerData DamageDealer;
     public HealerData Healer;
     public EnemyData Enemy;
+    public RandomEffectData RandomEffects;
     void Awake()
     {
         InitalizeSingleton();
@@ -69,6 +70,16 @@ public class GameManager : MonoBehaviour
         public float AttackDamage;
         [Range(0, 100)] public int Resistance;
         [Range(0, 100)] public int DefenceBonus;
+    }
+    [System.Serializable]
+    public class RandomEffectData
+    {
+        [Range(1.0f, 100f)] public float MeleeDamageBonusMultiplier;
+        [Range(0.0f, 1.0f)] public float MeleeDamageReductionMultiplier;
+        [Range(1.0f, 100f)] public float RangeDamageBonusMultiplier;
+        [Range(0, 100)]     public int ArmorReductionValue;
+        [Range(1.0f, 100f)] public float HealBonusMultiplier;
+        [Range(0.0f, 1.0f)] public float HealReductionMultiplier;
     }
 
     public enum AttackType

@@ -45,21 +45,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tank:
+    classType: 0
+    attackType: 0
     Health: 70
     AttackDamage: 10
+    SkillValue: 10
     Resistance: 20
     DefenceBonus: 20
   DamageDealer:
+    classType: 1
+    attackType: 0
     Health: 50
     AttackDamage: 20
+    SkillValue: 10
     Resistance: 10
     DefenceBonus: 20
   Healer:
+    classType: 2
+    attackType: 1
     Health: 30
     AttackDamage: 5
+    SkillValue: 30
     Resistance: 0
     DefenceBonus: 20
   Enemy:
+    attackType: 0
     Health: 10
     AttackDamage: 5
     Resistance: 33

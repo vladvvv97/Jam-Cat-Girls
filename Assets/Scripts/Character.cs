@@ -18,6 +18,7 @@ public class Character : MonoBehaviour
     public float initialAttackDamage;
     public int initialResistance;
     public int initialDefenceBonus;
+    public float initialSkillValue;
 
     private GameManager.AttackType attackType;
     private GameManager.ClassType classType;
