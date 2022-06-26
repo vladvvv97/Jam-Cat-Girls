@@ -143,14 +143,23 @@ public class TurnBasedCombatSystem : MonoBehaviour
     {
         if (_chosenCharacter && _chosenCharacter.AlreadyUsed == false)
         {
-            if (_chosenAbility == AbilityType.Attack)
+            if (_chosenAbility == AbilityType.Attack && _chosenCharacter.AttackType == GameManager.AttackType.Melee)
             {
+                _chosenCharacter.AttackAnimation(enemy.transform.position.x);
+                float damage = _chosenCharacter.AttackDamage * ((100f - enemy.Resistance) / 100f);
+                enemy.HealthNow -= damage;
+                enemy.UpdateHP(damage);               
+                _chosenCharacter.AlreadyUsed = true;
+                _chosenCharacter = null;
+                
+            }
+            else if (_chosenAbility == AbilityType.Attack && _chosenCharacter.AttackType == GameManager.AttackType.Range)
+            {
+                _chosenCharacter.AttackAnimation();
                 float damage = _chosenCharacter.AttackDamage * ((100f - enemy.Resistance) / 100f);
                 enemy.HealthNow -= damage;
                 enemy.UpdateHP(damage);
-
-                _chosenCharacter.ChangeColor(Color.grey);
-                _chosenCharacter.AlreadyUsed = true;
+                _chosenCharacter.AlreadyUsed = true;          
                 _chosenCharacter = null;
             }
             else if (_chosenAbility == AbilityType.Skill)
@@ -310,7 +319,8 @@ public class TurnBasedCombatSystem : MonoBehaviour
             {
                 characters.ForEach(element => { element.HealthNow += (int)_chosenCharacter.SkillValue; });
 
-                EventsManager.InvokeOnHealthChangesEvent(_chosenCharacter.SkillValue);
+                characters.ForEach(element => { element.UpdateHPAfterHealing(_chosenCharacter.SkillValue); });
+
 
                 _chosenCharacter.ChangeColor(Color.grey);
                 _chosenCharacter.AlreadyUsed = true;

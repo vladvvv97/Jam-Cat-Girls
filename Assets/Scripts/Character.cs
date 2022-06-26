@@ -9,7 +9,7 @@ public class Character : MonoBehaviour
     [SerializeField] private GameObject HP;
     [SerializeField] private Transform hpBar;
     [SerializeField] private GameObject hpChangeEffect;
-    [SerializeField] private TextMeshPro hpChangeEffectTmp;
+    [SerializeField] public TextMeshPro hpChangeEffectTmp;
 
     protected SpriteRenderer sr;
 
@@ -41,9 +41,13 @@ public class Character : MonoBehaviour
     public float SkillValue { get => skillValue; set => skillValue = value; }
     public GameManager.ClassType ClassType { get => classType; set => classType = value; }
 
+    private Animator animator;
+    [SerializeField] AnimationClip animationClip;
+    protected Vector3 initialPosition;
     virtual protected void Awake()
     {
-        
+        animator = GetComponent<Animator>();
+        initialPosition = transform.position;
     }
 
     virtual protected void Start()
@@ -68,6 +72,14 @@ public class Character : MonoBehaviour
     {
         hpBar.localScale = new Vector3(HealthNow / Health, 1, 1);
         hpChangeEffectTmp.text = $"-{dmg}";
+        hpChangeEffectTmp.color = Color.red;
+        StartCoroutine(ActivateHPChangeEffect());
+    }
+    public void UpdateHPAfterHealing(float heal)
+    {
+        hpBar.localScale = new Vector3(HealthNow / Health, 1, 1);
+        hpChangeEffectTmp.text = $"+{heal}";
+        hpChangeEffectTmp.color = Color.green;
         StartCoroutine(ActivateHPChangeEffect());
     }
 
@@ -87,4 +99,27 @@ public class Character : MonoBehaviour
         HP.SetActive(false);
     }
 
+    public void AttackAnimation(float x)
+    {
+        ChangeColor(Color.white);
+        animator.Play(animationClip.name);
+        transform.position = new Vector3(x-1.0f, transform.position.y, transform.position.z);
+        Invoke(nameof(ChangeColor), animationClip.length);
+        Invoke(nameof(ChangePositionToInitial), animationClip.length);
+    }
+    public void AttackAnimation()
+    {
+        ChangeColor(Color.white);
+        animator.Play(animationClip.name);
+        Invoke(nameof(ChangeColor), animationClip.length);
+    }
+
+    private void ChangeColor()
+    {
+        sr.color = Color.grey;       
+    }
+    private void ChangePositionToInitial()
+    {
+        transform.position = initialPosition;
+    }
 }
