@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get => _instance; private set => _instance = value; }
 
     public TankData Tank;
+    public DamageDealerData DamageDealer;
+    public HealerData Healer;
     public EnemyData Enemy;
     void Awake()
     {
@@ -29,17 +31,56 @@ public class GameManager : MonoBehaviour
     [System.Serializable]
     public class TankData
     {
+        public ClassType classType;
+        public AttackType attackType;
         public float Health;
         public float AttackDamage;
+        public float SkillValue;
+        [Range(0, 100)] public int Resistance;
+        [Range(0, 100)] public int DefenceBonus;
+    }
+    [System.Serializable]
+    public class DamageDealerData
+    {
+        public ClassType classType;
+        public AttackType attackType;
+        public float Health;
+        public float AttackDamage;
+        public float SkillValue;
+        [Range(0, 100)] public int Resistance;
+        [Range(0, 100)] public int DefenceBonus;
+    }
+    [System.Serializable]
+    public class HealerData
+    {
+        public ClassType classType;
+        public AttackType attackType;
+        public float Health;
+        public float AttackDamage;
+        public float SkillValue;
         [Range(0, 100)] public int Resistance;
         [Range(0, 100)] public int DefenceBonus;
     }
     [System.Serializable]
     public class EnemyData
     {
+        public AttackType attackType;
         public float Health;
         public float AttackDamage;
         [Range(0, 100)] public int Resistance;
         [Range(0, 100)] public int DefenceBonus;
     }
+
+    public enum AttackType
+    {
+        Melee,
+        Range
+    }
+    public enum ClassType
+    {
+        Tank,
+        DamageDealer,
+        Healer
+    }
+
 }

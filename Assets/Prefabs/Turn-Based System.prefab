@@ -57,3 +57,5 @@ MonoBehaviour:
   attackButton: {fileID: 0}
   skillButton: {fileID: 0}
   defendButton: {fileID: 0}
+  diceRoll: {fileID: 0}
+  _delay: 2.01

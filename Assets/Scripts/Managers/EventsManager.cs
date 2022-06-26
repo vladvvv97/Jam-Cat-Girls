@@ -8,6 +8,7 @@ public class EventsManager : MonoBehaviour
     public static readonly UnityEvent<Character> OnChosed = new UnityEvent<Character>();
     public static readonly UnityEvent<Enemy> OnAttackEnemy = new UnityEvent<Enemy>();
     public static readonly UnityEvent OnTurnEnds = new UnityEvent();
+    public static readonly UnityEvent OnHealthChanges = new UnityEvent();
 
     public static void InvokeOnChosenEvent(Character character)
     {
@@ -21,5 +22,9 @@ public class EventsManager : MonoBehaviour
     public static void InvokeOnTurnEndsEvent()
     {
         OnTurnEnds?.Invoke();
+    }
+    public static void InvokeOnHealthChangesEvent()
+    {
+        OnHealthChanges?.Invoke();
     }
 }

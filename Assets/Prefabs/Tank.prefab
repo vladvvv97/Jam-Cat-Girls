@@ -26,7 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3836294395220492744}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fb0ec704fb7c44b4e96a408ae154912d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -117,7 +117,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 2.7, y: 2.7}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -133,6 +133,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3836294395220492747}
     m_Modifications:
+    - target: {fileID: 744458772320561930, guid: ac88e47a3b34f7d4789c5b19115c2d38, type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 744458772320561930, guid: ac88e47a3b34f7d4789c5b19115c2d38, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 488095987
+      objectReference: {fileID: 0}
+    - target: {fileID: 2213165978771444204, guid: ac88e47a3b34f7d4789c5b19115c2d38, type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2213165978771444204, guid: ac88e47a3b34f7d4789c5b19115c2d38, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 488095987
+      objectReference: {fileID: 0}
     - target: {fileID: 6197553545322011794, guid: ac88e47a3b34f7d4789c5b19115c2d38, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -176,6 +192,14 @@ PrefabInstance:
     - target: {fileID: 6197553545322011794, guid: ac88e47a3b34f7d4789c5b19115c2d38, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8467315286754361076, guid: ac88e47a3b34f7d4789c5b19115c2d38, type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8467315286754361076, guid: ac88e47a3b34f7d4789c5b19115c2d38, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 488095987
       objectReference: {fileID: 0}
     - target: {fileID: 8867837950370192854, guid: ac88e47a3b34f7d4789c5b19115c2d38, type: 3}
       propertyPath: m_Name

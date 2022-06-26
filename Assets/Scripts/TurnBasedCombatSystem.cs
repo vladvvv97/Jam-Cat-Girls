@@ -15,8 +15,13 @@ public class TurnBasedCombatSystem : MonoBehaviour
     [SerializeField] private Button skillButton;
     [SerializeField] private Button defendButton;
 
-    [Range(0.0f, 5.0f)] private float _delay = 2f;
-    
+    [SerializeField] private DiceRoll diceRoll;
+
+    [SerializeField] [Range(0.0f, 5.0f)] private float _delay = 2f;
+
+    [SerializeField] private GameObject win;
+    [SerializeField] private GameObject lose;
+
     private Character _chosenCharacter;
 
     private AbilityType _chosenAbility;
@@ -42,12 +47,28 @@ public class TurnBasedCombatSystem : MonoBehaviour
         skillButton.onClick.AddListener(SetSkillAbilityType);
 
     }
-
+    void Start()
+    {
+        diceRoll.StartCoroutine(diceRoll.Roll(_delay));
+        SetGlobalEffect(diceRoll.Effect);
+    }
     void Update()
     {
-        
+        if (enemies.TrueForAll(element => element.IsDead == true)) win.gameObject.SetActive(true);
+        if (characters.TrueForAll(element => element.IsDead == true)) lose.gameObject.SetActive(true);
     }
-
+    void SetGlobalEffect(DiceRoll.DiceRollEffect effect)
+    {
+        switch (effect)
+        {
+            case DiceRoll.DiceRollEffect.Effect1: foreach (var element in characters) { if (element.AttackType == GameManager.AttackType.Melee) { element.AttackDamage *= 2; } } foreach (var element in enemies) { if (element.AttackType == GameManager.AttackType.Melee) { element.AttackDamage *= 2; } } break;
+            case DiceRoll.DiceRollEffect.Effect2: foreach (var element in characters) { if (element.AttackType == GameManager.AttackType.Melee) { element.AttackDamage *= 2; } } foreach (var element in enemies) { if (element.AttackType == GameManager.AttackType.Melee) { element.AttackDamage *= 2; } } break;
+            case DiceRoll.DiceRollEffect.Effect3: foreach (var element in characters) { if (element.AttackType == GameManager.AttackType.Melee) { element.AttackDamage *= 2; } } foreach (var element in enemies) { if (element.AttackType == GameManager.AttackType.Melee) { element.AttackDamage *= 2; } } break;
+            case DiceRoll.DiceRollEffect.Effect4: foreach (var element in characters) { if (element.AttackType == GameManager.AttackType.Melee) { element.AttackDamage *= 2; } } foreach (var element in enemies) { if (element.AttackType == GameManager.AttackType.Melee) { element.AttackDamage *= 2; } } break;
+            case DiceRoll.DiceRollEffect.Effect5: foreach (var element in characters) { if (element.AttackType == GameManager.AttackType.Melee) { element.AttackDamage *= 2; } } foreach (var element in enemies) { if (element.AttackType == GameManager.AttackType.Melee) { element.AttackDamage *= 2; } } break;
+            case DiceRoll.DiceRollEffect.Effect6: foreach (var element in characters) { if (element.AttackType == GameManager.AttackType.Melee) { element.AttackDamage *= 2; } } foreach (var element in enemies) { if (element.AttackType == GameManager.AttackType.Melee) { element.AttackDamage *= 2; } } break;
+        }
+    }
     void AttackEnemy(Enemy enemy)
     {
         if (_chosenCharacter && _chosenCharacter.AlreadyUsed == false)
@@ -64,10 +85,11 @@ public class TurnBasedCombatSystem : MonoBehaviour
             }
             else if (_chosenAbility == AbilityType.Skill)
             {
+
                 Debug.Log("Skill");
-                _chosenCharacter.ChangeColor(Color.grey);
-                _chosenCharacter.AlreadyUsed = true;
-                _chosenCharacter = null;
+                //_chosenCharacter.ChangeColor(Color.grey);
+                //_chosenCharacter.AlreadyUsed = true;
+               // _chosenCharacter = null;
             }
             else{ return; }           
         }
@@ -83,7 +105,10 @@ public class TurnBasedCombatSystem : MonoBehaviour
         }
         else return;
     }
+    void SetGameOverScreen()
+    {
 
+    }
     void CheckTurnEnds(Enemy enemy)
     {
         if (characters.Count == 0 || enemies.Count == 0)
@@ -98,8 +123,10 @@ public class TurnBasedCombatSystem : MonoBehaviour
     }
     void CheckTurnEnds()
     {
-        if (characters.Count == 0 || enemies.Count == 0)
-        { return; }
+        if (characters.Count == 0 || enemies.Count == 0) // Бесполезно
+        {
+            return;
+        }
         else if (characters.TrueForAll(element => element.AlreadyUsed == true) && enemies.TrueForAll(element => element.AlreadyUsed == true))
         {
             Debug.Log("Invoke");
@@ -120,11 +147,23 @@ public class TurnBasedCombatSystem : MonoBehaviour
         characters.ForEach(element => 
         {   element.AlreadyUsed = false;
             element.ChangeColor(Color.white);
-            element.AttackDamage = GameManager.Instance.Tank.AttackDamage;
-            element.Resistance = GameManager.Instance.Tank.Resistance;
-            element.DefenceBonus = GameManager.Instance.Tank.DefenceBonus;
+            element.AttackDamage = element.initialAttackDamage;
+            element.Resistance = element.initialResistance;
+            element.DefenceBonus = element.initialDefenceBonus;
 
         } ) ;
+        enemies.ForEach(element =>
+        {
+            element.AlreadyUsed = true; // Поменять когда будет реализован AI
+            element.ChangeColor(Color.white);
+            element.AttackDamage = element.initialAttackDamage;
+            element.Resistance = element.initialResistance;
+            element.DefenceBonus = element.initialDefenceBonus;
+
+        });
+
+        diceRoll.StartCoroutine(diceRoll.Roll(_delay));
+        SetGlobalEffect(diceRoll.Effect);
     }
     void UpdateTurn()
     {       
@@ -151,5 +190,43 @@ public class TurnBasedCombatSystem : MonoBehaviour
     void SetSkillAbilityType()
     {
         _chosenAbility = AbilityType.Skill;
+    }
+
+    public void UseSkill()
+    {
+        if (_chosenCharacter)
+        {
+            if (_chosenCharacter.ClassType == GameManager.ClassType.Tank)
+            {
+                characters.ForEach(element => { element.Resistance += (int)_chosenCharacter.SkillValue; });
+
+                _chosenCharacter.ChangeColor(Color.grey);
+                _chosenCharacter.AlreadyUsed = true;
+                _chosenCharacter = null;
+            }
+            else if (_chosenCharacter.ClassType == GameManager.ClassType.DamageDealer)
+            {
+                characters.ForEach(element => { element.AttackDamage += (int)_chosenCharacter.SkillValue; });
+
+                _chosenCharacter.ChangeColor(Color.grey);
+                _chosenCharacter.AlreadyUsed = true;
+                _chosenCharacter = null;
+            }
+            else if (_chosenCharacter.ClassType == GameManager.ClassType.Healer)
+            {
+                characters.ForEach(element => { element.HealthNow += (int)_chosenCharacter.SkillValue; });
+
+                EventsManager.InvokeOnHealthChangesEvent();
+
+                _chosenCharacter.ChangeColor(Color.grey);
+                _chosenCharacter.AlreadyUsed = true;
+                _chosenCharacter = null;
+            }
+            else
+            {
+
+            }
+        }
+        else { }
     }
 }

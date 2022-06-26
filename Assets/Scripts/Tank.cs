@@ -11,12 +11,20 @@ public class Tank : Character
         AttackDamage = GameManager.Instance.Tank.AttackDamage;
         Resistance = GameManager.Instance.Tank.Resistance;
         DefenceBonus = GameManager.Instance.Tank.DefenceBonus;
+        SkillValue = GameManager.Instance.Tank.SkillValue;
+        ClassType = GameManager.Instance.Tank.classType;
+        AttackType = GameManager.Instance.Tank.attackType;
+        initialHealth = Health; 
+        initialAttackDamage = AttackDamage;
+        initialResistance = Resistance;
+        initialDefenceBonus = DefenceBonus;
 
-        HealthNow = Health;
+        HealthNow = Health/2;
     }
 
     override protected void Start()
     {
         base.Start();
     }
+
 }
