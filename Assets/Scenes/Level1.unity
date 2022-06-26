@@ -776,12 +776,12 @@ GameObject:
   - component: {fileID: 439492611}
   - component: {fileID: 439492610}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: Range
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &439492609
 RectTransform:
   m_ObjectHideFlags: 0
@@ -822,7 +822,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 54e1d0a03f54588439545d81dfa11667, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5342ba30e435e214d9b056e99300c11a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4145,12 +4145,12 @@ GameObject:
   - component: {fileID: 2031372281}
   - component: {fileID: 2031372280}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Melee
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2031372279
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4536,6 +4536,14 @@ PrefabInstance:
       propertyPath: attackBonusIcon
       value: 
       objectReference: {fileID: 532933}
+    - target: {fileID: 792407641025843516, guid: 603a02152c634fe4d8aa0be77fb603fb, type: 3}
+      propertyPath: meleeAttackIcon
+      value: 
+      objectReference: {fileID: 2031372278}
+    - target: {fileID: 792407641025843516, guid: 603a02152c634fe4d8aa0be77fb603fb, type: 3}
+      propertyPath: rangeAttackIcon
+      value: 
+      objectReference: {fileID: 439492608}
     - target: {fileID: 792407641025843516, guid: 603a02152c634fe4d8aa0be77fb603fb, type: 3}
       propertyPath: defenceBonusIcon
       value: 

@@ -26,6 +26,9 @@ public class TurnBasedCombatSystem : MonoBehaviour
     [SerializeField] private GameObject healIcon;
     [SerializeField] private GameObject attackBonusIcon;
 
+    [SerializeField] private GameObject meleeAttackIcon;
+    [SerializeField] private GameObject rangeAttackIcon;
+
     private Character _chosenCharacter;
 
     private AbilityType _chosenAbility;
@@ -68,18 +71,24 @@ public class TurnBasedCombatSystem : MonoBehaviour
         {
             if (_chosenCharacter.ClassType == GameManager.ClassType.Tank)
             {
+                meleeAttackIcon.SetActive(true);
+                rangeAttackIcon.SetActive(false);
                 defenceBonusIcon.SetActive(true);
                 healIcon.SetActive(false);
                 attackBonusIcon.SetActive(false);
             }
             else if (_chosenCharacter.ClassType == GameManager.ClassType.Healer)
             {
+                meleeAttackIcon.SetActive(false);
+                rangeAttackIcon.SetActive(true);
                 defenceBonusIcon.SetActive(false);
                 healIcon.SetActive(true);
                 attackBonusIcon.SetActive(false);
             }
             else if (_chosenCharacter.ClassType == GameManager.ClassType.DamageDealer)
             {
+                meleeAttackIcon.SetActive(true);
+                rangeAttackIcon.SetActive(false);
                 defenceBonusIcon.SetActive(false);
                 healIcon.SetActive(false);
                 attackBonusIcon.SetActive(true);
